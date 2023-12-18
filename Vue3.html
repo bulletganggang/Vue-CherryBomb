@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue3</title>
+  <style>
+    * {
+      font-size: 25px;
+    }
+
+    h1 {
+      font-size: 35px;
+    }
+
+    h2 {
+      font-size: 31px;
+    }
+
+    h3 {
+      font-size: 28px;
+    }
+
+    h4 {
+      font-size: 26px;
+    }
+
+    p {
+      font-size: 25px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Vue3</h1>
+  <p>vue3是组合式API，使用create-vue创建vue3项目</p>
+  <hr>
+  <h1>setup</h1>
+  <p>vue3提供setup函数，比beforeCreate函数还要早执行</p>
+  <p>在setup函数中，获取不到this</p>
+  <p>数据和函数，需要setup中return才能在模板中使用</p>
+  <p>也可以语法糖简化写法，使用 script setup，底层自动返回</p>
+  <hr>
+  <h1>reactive & ref</h1>
+  <p>ref代替了vue2中的data，定义响应式数据</p>
+  <p>const state = reactive({ }) 函数内设置变量，赋给state，即可变为响应式对象</p>
+  <p>const count = ref(0) script中使用count.value获取数据，模板中不需要加.value</p>
+  <p>reactive 接收对象类型数据，ref 接收简单/复杂类型，返回的都是对象</p>
+  <p>统一使用ref，规范代码</p>
+  <hr>
+  <h1>computed</h1>
+  <p>属性类似vue2，使用方法为const num = computed(()=>{ return 计算后的值})，用computed包裹住需要计算函数</p>
+  <p>同样类似于ref，script中使用.value获取数据，模板中不需要加.value</p>
+  <hr>
+  <h1>watch</h1>
+  <p>监听单个对象watch(ref对象, (new1 old1) => {})</p>
+  <p>监听多个对象watch([ref对象1, ref对象2], ([new1, old1], [new2, old2]) => { })</p>
+  <p>oldValue使用较少，多个对象使用数组[]包含</p>
+  <p>如果添加immediate: true等选项，写在第三个参数即可</p>
+  <p>watch是可以直接监听多个浅属性，但是遇到对象的内部修改，还是需要使用deep: true来监听</p>
+  <p>如果想要只监听对象中的某个数据，可以使用精确监听，第一个参数写成回调函数的形式 watch(() => 需要监听的对象中的某个属性, (newValue, oldValue) => {})</p>
+  <hr>
+  <h1>Vue3生命周期钩子</h1>
+  <p>Vue3中的生命周期钩子变为了函数形式，onMounted，可以调用多次，并且也有些变化，比如
+    create变为了setup
+  </p>
+  <hr>
+  <h1>父传子 & 子传父</h1>
+  <p>vue3中，import进来的子组件即可直接使用</p>
+  <h3>vue3中没有props接收，父传子可以使用const props = defineProps({test: String})</h3>
+  <p>script中访问传来的数据需要使用props.xxx，但在template中可以直接用xxx来访问</p>
+  <h3>子传父首先在子组件中定义事件，然后在script中导入emit const emit = defineEmits([方法])</h3>
+  <p>这个方法即是我们要传给父组件的方法，事件触发后，就emit方法，将参数传递给父组件</p>
+  <p>父组件中在通过@事件名='方法' 接收，事件名就可以定义一些方法来使用传递过来的参数</p>
+  <hr>
+  <h1>模板引用</h1>
+  <p>可以获取Dom，也可以获取组件</p>
+  <p>通过ref函数，生成ref对象，注意这是在script中</p>
+  <p>通过ref标识，绑定ref对象，注意ref标识是在template中</p>
+  <p>最后即可通过ref对象.value访问，需要注意的是，得在dom渲染完之后获取，所以需要用到onMounted</p>
+  <h3>除了本组件中的标签，子组件也可以使用，但在默认情况下，子组件内部的属性和方法不开放给父组件，可以通过子组件中defineExpose导出</h3>
+  <p>首先父组件中import进子组件，并注册为ref对象，然后在父组件中的template中使用子组件标签，并绑定为ref对象</p>
+  <hr>
+  <h1>provide & inject</h1>
+  <p>顶层组件使用provide(数据名, 变量)传递，底层组件使用const xxx = inject(数据名)接收</p>
+  <p>在父组件中使用 ref 创建了一个响应式的数据，并通过 provide 提供给子组件，那么子组件可以直接修改这个数据。</p>
+  <p>在子组件中对父组件提供的响应式数据进行修改会触发 Vue 的响应式系统，导致界面的更新。</p>
+  <p>但需要记住，直接修改父组件提供的数据可能会导致应用程序更难以理解和维护，因为数据的变化是在子组件内部发生的，这可能增加代码的复杂性。</p>
+  <p>最佳实践是尽量避免在子组件中直接修改父组件提供的数据，而是通过子组件向父组件发送事件或调用父组件传递的方法来请求数据的更改。</p>
+  <p>父组件中provide方法，子组件inject接收方法来修改数据</p>
+  <hr>
+  <h1>defineOptions</h1>
+  <p>vue3中script setup无法写props/slot等选项，vue3提供了defineXXX函数，而一些自定义属性，比如name，则用到defineOptions函数</p>
+  <hr>
+  <h1>Pinia</h1>
+  <p>Pinia就是最新的vue仓库，是vuex的进阶</p>
+  <p>export const XXX = defineStore(仓库标识名, () => {}) 即可定义pinia，defineStore返回的是一个函数，import在组件中还需要调用才能成为对象</p>
+  <p>ref()创建的对象就是state数据，getters即调用computed const XXX = computed(() => {})</p>
+  <h3>storeToRefs 解构对象</h3>
+  <p>组件获取来的pinia对象是无法通过解构获取里面的值，因为值是ref对象，但方法是可以通过解构获取</p>
+  <p>使用const { XXX } = storeToRefs(解构对象) 来获取结构对象中的XXX数据</p>
+  <h3>Pinia持久化</h3>
+  <p>通过插件pinia-plugin-persistedstate让pinia本地持久化，在main.js中导入并注册，然后在需要持久化的pinia对象中，defineStore(仓库标识名, () => {}, {
+    persist: true
+  }
+  )即可开启本地持久化</p>
+  <p>本质还是使用localStorage，存在本地的名字key就是仓库标识名</p>
+  <p>还可以设置本地的名字key和选择哪些是需要存储的数据，详情可以看<a href="https://prazdevs.github.io/pinia-plugin-persistedstate/zh/guide/config.html" target="_blank">文档</a></p>
+  <hr>
+  <h1>Vue3-bigProject</h1>
+  <h3>Vue3-router</h3>
+  <p>Vue2中的router，可以在script中使用this获取，但是Vue3中，是没有this的，所以要通过const router = useRouter()
+    const route = useRoute()来获取router和route</p>
+  <h3>Pinia</h3>
+  <p>pinia中的store可能有很多子模块，一个个导出非常不方便，可以统一导出到index中，需要使用的地方在导入index，简写方法为 export * from './modules/xxx'</p>
+  <h3>Element Plus</h3>
+  <p>表单元素可能使用较多，el-form，具体可以查看<a href="https://element-plus.org/zh-CN/component/form.html">官网</a></p>
+  <p>其中有一些属性比较重要，:model绑定整个form数据对象，:rules绑定整个form规则对象，v-model='对象.子属性'给某个元素（比如输入框）绑定form的子属性，prop配置的是哪个校验规则（需要与v-model绑定的子属性保持一致）</p>
+  <p>form数据对象就是内部填写需要的数据const formModel = ref({xxx: ''})</p>
+  <p>rules就是写数据对应的校验规则，比如trigger触发条件，message校验失败的提示话语，required非空，min/max长度校验，pattern正则校验 const rules = { xxx: [ {} ] }</p>
+  <p style="white-space: pre-wrap;">还有自定义校验，自己写逻辑校验 (校验函数)
+    validator: (rule, value, callback)
+    (1) rule  当前校验规则相关的信息
+    (2) value 所校验的表单元素目前的表单值
+    (3) callback 无论成功还是失败，都需要 callback 回调
+    - callback() 校验成功 
+    - callback(new Error(错误信息)) 校验失败</p>
+    <p>validate会对form整个表单内容进行验证，返回promise对象</p>
+</body>
+
+</html>

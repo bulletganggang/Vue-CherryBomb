@@ -201,3 +201,30 @@ export * from './modules/user'
 ### axios配置
 
 暂无~
+
+
+
+### 配置ref插件
+
+人要晕掉
+
+[Vue3+Vite项目按需自动导入配置以及一些常见问题修复 - 掘金 (juejin.cn)](https://juejin.cn/post/7263274550074196025)
+
+
+
+### 路由配置
+
+脑袋空空想不到~想到啥写啥把
+
+
+
+## 登录&注册页面
+
+在views文件夹下新建login文件夹，再在login文件夹下建立LoginPage.vue
+
+同时在router/index.js中配置路由
+
+本次登录页面主要结构参考此视频[Login Form in HTML & CSS - YouTube](https://www.youtube.com/watch?v=hlwlM4a5rxg)
+
+
+

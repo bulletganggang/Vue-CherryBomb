@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue2</title>
+  <style>
+    * {
+      font-size: 25px;
+    }
+
+    h1 {
+      font-size: 35px;
+    }
+
+    h2 {
+      font-size: 31px;
+    }
+
+    h3 {
+      font-size: 28px;
+    }
+
+    h4 {
+      font-size: 26px;
+    }
+
+    p {
+      font-size: 25px;
+    }
+  </style>
+
+</head>
+
+<body>
+  <h1>Vue.js</h1>
+  <p>Vue 数据驱动的方式使得开发者不需要手动操作 DOM，而是通过操作数据，Vue 会负责自动更新视图</p>
+  <p>比如更新了vue中的data，在js中，更新了也需要手动使用dom或者渲染函数再次渲染页面才会展现更新后的效果</p>
+  <p>但在vue中，更新了数据，vue就会实时更新浏览器，马上就能展现更新后的效果，不需要手动更新</p>
+  <p>比如list中push了一个新数据，js可能需要调用render()，但是vue中直接就可以呈现</p>
+
+  <p>通过id/class等属性，在vue中的el中定义，可以实现vue中管理盒子</p>
+  <p>通过data提供数据，使用键值对的形式，值是自己想要填入的数值，键是用{{}}包含起来的表达式</p>
+  <p>表达式的意思是，你获得的数据可以再进行操作，比如{{test + '778'}}得来的数据结尾会有778</p>
+  <p>以及还可以写三元运算符，判断语句之类</p>
+  <p>Vue响应式特性，响应式即数据修改实时渲染在网页，通过实例.属性名可以访问和修改</p>
+  <p><b>在 Vue.js 模板中，通常会使用插值表达式 {{}} 来将数据动态渲染到视图中。然而，在事件处理程序中使用属性或变量时，不需要使用插值表达式，因为 Vue.js 可以直接识别和处理这些属性和变量。这是因为Vue.js 自身会处理这些数据的绑定。</b></p>
+
+  <!-- 这里编写一些用于渲染的代码逻辑 -->
+  <!-- <div id="app">
+    {{name}}
+  </div> -->
+
+  <!-- 开发环境版本，包含了用帮助的命令行警告 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <!-- <script>
+    const app = new Vue({
+      // 通过element找到要管理的那个盒子
+      el: '#app',
+      // 通过data传值
+      data: {
+        name: '778'
+      }
+    })
+  </script> -->
+  <hr>
+
+  <h1>Vue指令</h1>
+  <p>指令 带有v-前缀的特殊标签属性</p>
+  <h3>v-html 设置元素的innerHTML</h3>
+  <!-- <div id="test">
+    <div v-html="msg"></div>
+  </div>
+  <script>
+    const test = new Vue({
+      el: '#test',
+      data: {
+        msg: '<a href="">123</a>'
+      }
+    })
+  </script> -->
+  <h3>v-show v-if 都是控制元素隐藏</h3>
+  <p>v-show = 'ture/false' if和show的区别在于，if隐藏会把html元素在网页中也删除，而show是display:'none'</p>
+  <p>v-show适合频繁切换显示隐藏的场景，v-if控制元素的创建和移除（条件渲染）</p>
+  <h3>v-else v-else-if需要配合v-if一起使用</h3>
+  <h3>v-on注册事件=添加监听+提供处理逻辑</h3>
+  <p>两种方式，v-on:事件名='内联语句' v-on:click = 'count++'</p>
+  <p>dblclick 双击事件</p>
+  <p>内联语句可以写正常操作句式，比如count += 2之类的</p>
+  <p>vue为了方便，v-on: 可以用 @ 代替</p>
+  <!-- <div id="ctest">
+    <button @mouseover="count--">-</button>
+    <span>{{count}}</span>
+    <button v-on:click="count++">+</button>
+  </div>
+
+  <script>
+    const ctest = new Vue({
+      el: '#ctest',
+      data: {
+        count: 100
+      },
+    })
+  </script> -->
+  <p>另外一种是v-on:事件名='method中的函数名'，method在vue中专门放置函数</p>
+  <p>在method中写函数，不需要写function，直接写函数名即可</p>
+  <p><b>需要注意的是，如果在method中函数需要data中某个变量，可以使用实例.属性名来访问，test.count = 778</b></p>
+  <p><b>Vue让提供的所有methods中的函数，this都指向当前实例</b></p>
+  <p>函数名写(参数1，参数2) 可以传参</p>
+  <h3>mixins文件夹中编写的js文件，通过import导入在需要使用的vue组件中</h3>
+  <p>导入位置是vue组件中的mixins: ['xxx']，则xxx文件中编写的data/methods中，vue组件都可以直接使用，如果有冲突，则优先使用vue组件中的</p>
+  <p>vue组件中可以使用的，都可以在js文件中写，比如钩子函数，data/methods等</p>
+  <!-- <div id="ctest">
+    <button @click="click2change">点击切换</button>
+    <span>{{count}}</span>
+  </div>
+
+  <script>
+    const ctest = new Vue({
+      el: '#ctest',
+      data: {
+        count: 100
+      },
+      methods: {
+        click2change() {
+          this.count = '芝士书咪琳宝'
+          console.log(778);
+        }
+      },
+    })
+  </script> -->
+  <h3>v-bind 动态的设置html的标签属性 src/class/title等</h3>
+  <p>v-bind:属性名 = '表达式' 由于v-bind非常常用，可以简写为 :属性名</p>
+  <p>需要注意它的用法，比如img想要动态的设置src，记得使用:src</p>
+  <!-- <div id="test">
+    <button @click='fn("-")'>-</button>
+    <a :href="d[count]">123</a>
+    <button @click='fn("+")'>+</button>
+  </div>
+  <script>
+    const test = new Vue({
+      el: '#test',
+      data: {
+        d: [1, 2, 3, 4, 5, 6],
+        count: 0
+      },
+      methods: {
+        fn(str) {
+          if (str === '-' && test.count>0) {
+            test.count--
+            console.log(test.count);
+          }
+          else if (str === '+' && test.count<5) {
+            test.count++
+            console.log(test.count);
+          }
+        }
+      },
+    })
+  </script> -->
+  <h3>v-for 基于数据循环，多次渲染整个元素</h3>
+  <p>给需要循环的标签加v-for，比如给ul中的第一个li加即可循环整个数组</p>
+  <p>v-for="(item,index) in 数组" index可以省略，只剩下一个数的时候括号也可以省略</p>
+  <p>v-for的:key给元素添加的唯一标识，便于vue进行列表项的正确排序复用，所以使用v-for务必使用:key</p>
+
+  <!-- <div id="test">
+    <ul>
+      <li v-for="(item,index) in d">{{item}} / {{index}}</li>
+    </ul>
+  </div>
+  <script>
+    
+    const test = new Vue({
+      el: '#test',
+      data: {
+        d: [11, 22, 33, 44, 55, 66]
+      },
+    })
+  </script> -->
+  <h3>v-model给表单元素使用，双向数据绑定，可以快速 获取 或 设置 表单元素内容</h3>
+  <p>双向绑定的意思是，填写的表单数据，也会反应在视图中，v-model是写在需要填写的标签中，比如input</p>
+  <p>并不是反应在编译器中的代码，而是网页中vue的视图</p>
+
+  <!-- <div id="test">
+    11<input type="text" v-model="t1"><br>
+    22<input type="text" v-model="t2"><br>
+    <button @click="login">login</button>
+    <button @click="reset">reset</button>
+  </div>
+  <script>
+
+    const test = new Vue({
+      el: '#test',
+      data: {
+        t1: '',
+        t2: ''
+      },
+      methods: {
+        login() {
+          console.log(this.t1,this.t2);
+        },
+        reset() {
+          this.t2 = this.t1 = ''
+        }
+      },
+    })
+  </script> -->
+  <h3>指令修饰符</h3>
+  <p>通过 . 指明一些指令后缀，不同后缀封装了不同的处理操作，简化代码</p>
+  <p>keyup.enter 键盘回车监听 v-model.trim 去除首尾空格 v-model.number 转数字</p>
+  <p>事件名.stop 阻止冒泡 事件名.prevent 阻止默认行为</p>
+  <p>在标签中的写法是 @keyup.enter=''，methods中的函数可以带事件对象 e</p>
+
+  <h3>v-bind操作class</h3>
+  <p>:class='对象/数组' 对象，key就是类名，value就是bool值，值为true则有这个类，适合来回切换一个类名</p>
+  <p>数组中所有的类，都会被添加到盒子上，适合批量添加/删除</p>
+  <!-- <div id="test">
+    <ul>
+      <li v-for="(item,index) in list" :key="item.id" :class="{active:index === activeIndex}"
+        @mouseenter="activeIndex = index">
+        {{item.name}}
+      </li>
+    </ul>
+  </div>
+  <script>
+
+    const test = new Vue({
+      el: '#test',
+      data: {
+        activeIndex: 0,
+        list: [
+          { id: 1, name: '111' },
+          { id: 2, name: '222' },
+          { id: 3, name: '333' },
+        ]
+      },
+    })
+  </script> -->
+
+  <p>v-bind也操作style，方法类似class，:style="height:'400px'"</p>
+  <p>key是属性，value要用''包含，需要注意的是，使用js所以不能用 - ，需要改成驼峰命名法</p>
+
+  <h3>v-model作用其它元素</h3>
+  <p>文本框和文本域就是输入的值</p>
+  <p>单个复选框就是v-model控制checked，如果是true，那么就是选中，多个复选框绑定到数组</p>
+  <p>单选框就是v-model=value值</p>
+  <p>select的v-model是写在select中而不是option中，v-model代表着option的value</p>
+  <hr>
+
+  <h1>计算属性</h1>
+  <p>基于现有数据，计算出新数据。依赖的数据变化，会自动重新计算</p>
+  <p>声明在computed配置项中，一个计算属性对应一个函数，使用起来和普通属性一样 {{计算属性名}}</p>
+  <p>计算属性会提前计算并放入缓存，效率/性能更高，methods是方法需要调用</p>
+  <!-- <div id="test">
+    <ul>
+      <li v-for="(item,index) in list" :key="item.id">
+        {{item.name}}
+      </li>
+    </ul>
+    num:{{count}}
+  </div>
+  <script>
+
+    const test = new Vue({
+      el: '#test',
+      data: {
+        activeIndex: 0,
+        list: [
+          { id: 1, name: 111 },
+          { id: 2, name: 222 },
+          { id: 3, name: 333 },
+        ]
+      },
+      computed: {
+        count() {
+          return this.list.reduce((pre, cur) => cur.name + pre, 0)
+        }
+      }
+    })
+  </script> -->
+
+  <h3>计算属性完整写法</h3>
+  <p>简写只能获取，不能修改</p>
+  <p>完整写法可以获取和设置，get(){}，set(value){}，get内的内容和简写内容一样，用的较少</p>
+  <p>如果遇到购物车的全选反选，就可以使用完整写法，因为勾选会改变设置，需要用到set()</p>
+  <p>补充知识，&& 用法是，想要前面的语句执行后才执行第二个语句。|| 用法是，第一个语句不执行就执行第二个语句</p>
+  <hr>
+
+  <h1>watch 侦听器/监视器</h1>
+  <p>当你有一些数据需要在发生变化时执行异步或开销较大的操作，或者当你需要在数据变化时执行一些额外逻辑时，watch 是一个非常有用的选项</p>
+  <p>在 Vue.js 中，watch 选项接受一个对象，对象的每个属性都是要监视的数据属性，而属性的值是一个回调函数。这个回调函数会在被监视的属性发生变化时被调用。回调函数接受两个参数，新值和旧值。</p>
+  <p>watch:{} 监视对象改变，可以获得改变后的新值。监视谁就写谁，注意是个方法，有两个形参，xxx(新值，旧值) {}，xxx就是我们要监视的属性，旧值一般不用，可以省略</p>
+  <p>也可以写对象.属性名，但是在js中 . 无法使用，所以需要'对象.属性名'包含</p>
+  <!-- <div id="test">
+    11<input type="text" v-model="t1"><br>
+  </div>
+  <script>
+
+    const test = new Vue({
+      el: '#test',
+      data: {
+        t1: ''
+      },
+      watch: {
+        t1(nnew) {
+          console.log('test',nnew,oold);
+        }
+      }
+    })
+  </script> -->
+  <h3>watch完整写法</h3>
+  <p>添加额外配置项,deep:true 对复杂类型深度监视 immediate:true 初始化立刻执行一次handler方法</p>
+  <p>此时不再是写方法，而是写一个对象，里面进行配置，obj:{}，而data中的obj可能有很多属性</p>
+  <p>所以需要使用deep:true 这样子可以对对象进行监视</p>
+  <p>而想要一进浏览器有个默认值，并且对这个默认值进行一次操作，但此时是没有变化的，所以无法被动发生watch，就需要immediate:true 开始时就立刻执行一次</p>
+  <hr>
+
+  <h1>生命周期</h1>
+  <p>创建/挂载/更新/销毁，每个阶段都提供两个钩子函数，生命周期钩子，可以在特定阶段运行代码</p>
+  <p>响应式数据准备 before Create/created | 模板渲染 before Mount/mounted | 用户操作 before Update/updated | 销毁 before
+    Destroy/destroyed</p>
+  <p>created 发送初始化，渲染请求，比如list没有初始值，需要通过axios从后台获取数据，就可以使用created，这样一打开页面就可以获得数据</p>
+  <p>mounted 操作Dom beforeDestroy 删除资源，比如定时器计时器等 钩子函数需要写在vue中，和data并列，写成方法格式</p>
+
+  <!-- <div id="test">
+    11<input type="text" v-model="t1"><br>
+  </div>
+  <script>
+    const test = new Vue({
+      el: '#test',
+      data: {
+        t1: '778'
+      },
+      // 响应式数据准备前，访问数据无效
+      beforeCreate() {
+        console.log(111, this.t1);
+      },
+      // 响应式数据准备完毕，可以访问数据
+      created() {
+        console.log(222, this.t1);
+      },
+      beforeMount() {
+        console.log(333);
+      },
+      mounted() {
+        console.log(444);
+      },
+    })
+  </script> -->
+  <hr>
+
+  <h1>VueCli 脚手架</h1>
+  <p>vue create projectname 创建项目架子 npm run serve(找package.json中定义的) 启动项目</p>
+  <h3>普通组件局部注册使用：创建.vue文件在components文件夹下，导入组件并注册</h3>
+  <p>局部注册只能在当前组件范围使用</p>
+  <p>导入进来的组件在vue的components:{}中配置</p>
+  <p>使用的话在结构template中以<导入组件名>当成标签去使用，需要注意，命名最好用大驼峰命名法</p>
+  <h3>全局注册使用：创建.vue文件在components文件夹下，在main.js中进行全局注册，后面步骤类似</h3>
+  <p>全局注册可以在所有组件范围使用</p>
+  <p>在main.js中进行注册，Vue.component(组件名，组件对象)</p>
+  <p>一般使用局部，如果有通用再提取成全局</p>
+
+  <!-- <div id="app-7">
+    <ol>
+      
+        现在我们为每个 todo-item 提供 todo 对象
+        todo 对象是变量，即其内容可以是动态的。
+        我们也需要为每个组件提供一个“key”，稍后再
+        作详细解释。
+     
+      <todo-item v-for="item in groceryList" :todo="item" :key="item.id"></todo-item>
+    </ol>
+  </div>
+
+  <script>
+    Vue.component('todo-item', {
+      props: ['todo'],
+      template: '<li>{{ todo.text }}</li>'
+    })
+
+    var app7 = new Vue({
+      el: '#app-7',
+      data: {
+        groceryList: [
+          { id: 0, text: '蔬菜' },
+          { id: 1, text: '奶酪' },
+          { id: 2, text: '随便其它什么人吃的东西' }
+        ]
+      }
+    })
+  </script> -->
+
+  <!-- <div id="watch-example">
+    <p>
+      Ask a yes/no question:
+      <input v-model="question">
+    </p>
+    <p>{{ answer }}</p>
+  </div> -->
+
+  <!-- 因为 AJAX 库和通用工具的生态已经相当丰富，Vue 核心代码没有重复 -->
+  <!-- 提供这些功能以保持精简。这也可以让你自由选择自己更熟悉的工具。 -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+  <script>
+    var watchExampleVM = new Vue({
+      el: '#watch-example',
+      data: {
+        question: '',
+        answer: 'I cannot give you an answer until you ask a question!'
+      },
+      watch: {
+        // 如果 `question` 发生改变，这个函数就会运行
+        question: function (newQuestion, oldQuestion) {
+          this.answer = 'Waiting for you to stop typing...'
+          this.debouncedGetAnswer()
+        }
+      },
+      created: function () {
+        // `_.debounce` 是一个通过 Lodash 限制操作频率的函数。
+        // 在这个例子中，我们希望限制访问 yesno.wtf/api 的频率
+        // AJAX 请求直到用户输入完毕才会发出。想要了解更多关于
+        // `_.debounce` 函数 (及其近亲 `_.throttle`) 的知识，
+        // 请参考：https://lodash.com/docs#debounce
+        this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
+      },
+      methods: {
+        getAnswer: function () {
+          if (this.question.indexOf('?') === -1) {
+            this.answer = 'Questions usually contain a question mark. ;-)'
+            return
+          }
+          this.answer = 'Thinking...'
+          var vm = this
+          axios.get('https://yesno.wtf/api')
+            .then(function (response) {
+              vm.answer = _.capitalize(response.data.answer)
+            })
+            .catch(function (error) {
+              vm.answer = 'Error! Could not reach the API. ' + error
+            })
+        }
+      }
+    })
+  </script> -->
+
+  <!-- <div id="components-demo">
+    <button-counter></button-counter>
+  </div>
+
+  <script>
+    // 定义一个名为 button-counter 的新组件
+    Vue.component('button-counter', {
+      data: function () {
+        return {
+          count: 0
+        }
+      },
+      template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+    })
+    // 创建vue才能使用
+    new Vue({ el: '#components-demo' })
+  </script> -->
+
+  <hr>
+
+  <h1>组件</h1>
+  <p>scoped解决css样式冲突，默认样式为全局，添加scoped可以限于局部</p>
+  <p>添加在vue文件中的style行中</p>
+  <p>组件中的data与之前的不同，必须是函数形式，这样子多个组件的时候，里面的变量不会相互影响</p>
+  <p>比如点击count++，多个组件不用函数的话，会同用一个count，导致一起++，而返回就可以一个组件一个变量</p>
+  <p>data() {
+    return {
+    count: 200
+    }
+    }</p>
+  <hr>
+
+  <h1>组件通信</h1>
+  <h3>父 -> 子 通过props，注意props是写在子组件中的 props: ['count']</h3>
+  <p>第一步，子组件定义props: ['count'] 第二步，子组件的template中使用{{ count }}</p>
+  <p>第三步，父组件引入，调用 第四步，在调用的子组件行内定义:count="cnt"</p>
+  <p>需要注意的是，cnt需要在父组件中提前定义，并且 行内定义:属性名需要和定义的props一样</p>
+  <h3>子 -> 父 通过$emit</h3>
+  <p>第一步，this.$emit触发事件，给父组件发送消息通知 第二步，父组件监听事件</p>
+  <p>第三步，提供处理函数，形参中获取参数</p>
+  <p>先在子组件中定义 methods: {
+    testClick() {
+    this.$emit('changeTitle','test')
+    }
+    },</p>
+  <p>需要注意这出现的一些名词 testClick，因为是在子组件中定义的，所有是在子组件中使用 @click="testClick"</p>
+  <p>而changeTitle是传出去的方法，后面跟着的是参数</p>
+  <p>传出去的方法和参数就要在父组件中使用了 需要定义 @changeTitle="changeTest"，@changeTitle是传出来的方法，所以可以这么使用</p>
+  <p>而changeTest，就是调用父组件的函数了，所以需要在父组件中定义 methods: {
+    changeTest(newValue) {
+    this.count = newValue
+    }
+    },</p>
+  <p>这样就完成了子传父的操作</p>
+  <hr>
+
+  <h1>prop</h1>
+  <p>prop定义：组件上注册的一些自定义属性 作用：向子组件传递数据</p>
+  <p>可以传递任意数量/类型的prop</p>
+  <p>父传子的本质是，使用 :属性名，向子组件传递信息</p>
+  <p>:count="count"，第一个count是子组件从父组件接受的prop，子组件首先自己定义了{{ count }}，接受过来的prop就可以当成正常的data来使用了</p>
+  <p>第二个count是父组件在data中定义的，是一个值</p>
+  <h3>props校验</h3>
+  <p>需要number传入string就会发生错误，为了让控制台报错，将props从数组传入变成对象传入</p>
+  <p>简单写法 属性名:校验要求（String/Number）</p>
+  <p>完整写法 对象形式，type判断类型，required判断是否必填，default设置默认值，自定义校验逻辑 属性名:{}</p>
+  <p>validator(value) {} 可以自定义校验逻辑，返回bool值，return false可以在控制台看到错误</p>
+  <h3>prop & data & 单向数据流</h3>
+  <p>data数据是自己的，可以随便改 prop数据是父组件传过来的，不能直接改，要遵循单向数据流</p>
+  <p>单向数据流就是，父组件的数据发生变化，才会改变子组件</p>
+  <p>简单来说就是谁的数据谁负责，子组件不能直接修改父组件，而要通过$emit，传信息给父组件，让父组件修改</p>
+  <hr>
+
+  <h1>非父子通信</h1>
+  <h3>首先在EventBus.js中创建一个bus的vue事件总线，再在需要使用通信的组件中import进来</h3>
+  <p>然后在接收方用bus.$on监听 bus.$on('test',msg => console.log(msg))</p>
+  <p>发送方用bus.$emit触发事件 bus.$emit('test','msg')</p>
+  <p>需要注意的是，on监听事件需要和emit触发事件名称一样</p>
+  <p>并且通信是一对多的关系，谁用了on的test事件，谁就能被一起触发</p>
+  <h3>provide-inject</h3>
+  <p>父组件使用provide(){} return一个对象，子组件在inject接受</p>
+  <p>简单类型不会响应式更新，复杂类型会响应</p>
+  <hr>
+
+  <h1>v-model</h1>
+  <h3>v-model本质是语法糖，应用在输入框上就是，value属性和input事件的合写</h3>
+  <p>如果想要模板中获取事件形参，使用$event获取</p>
+  <h3>props传过来的数据无法使用v-model，因为子组件无法直接修改父组件的信息</h3>
+  <p>所以就要拆分v-model，变成:value接受父传子的信息，然后$emit子传父新的信息</p>
+  <h3>父组件使用v-model简化代码</h3>
+  <p>父组件使用 v-model 将一个数据属性绑定到子组件的 prop 和事件</p>
+  <p>子组件需要定义一个名为 value 的 prop，prop:{ value:Number } 用于接收父组件传递的值</p>
+  <p>用this.$emit('input',this.value - 1) 用于发送值的更新</p>
+  <p>在父组件中，子组件中的内容可以使用v-model绑定，因为绑定的内容在父组件中，在同一个作用域下</p>
+  <p>子组件需要提前设置好，:value + @input，props使用value接收值，$emit传的事件为input</p>
+  <hr>
+
+  <h1>.sync修饰符实现父子组件数据双向绑定</h1>
+  <p>props属性名可以自定义，不再固定value，适合其它场景</p>
+  <p>父组件中的子组件使用 :visible.sync = 'xxx' 等价于 :visible + @update:visible = 'xxx'</p>
+  <p>子组件中的$emit('update:')是固定的，冒号后面写props传过来的数据</p>
+  <hr>
+
+  <h1>ref和$refs获取dom和组件</h1>
+  <p>vue中某个子组件获取某个dom元素的时候，如果父组件的template有这个dom元素，那可能会出错</p>
+  <p>因为子组件的操作默认是在所有组件中进行，获取的dom元素可能会获取错误</p>
+  <p>使用ref可以将查找范围限定在当前组件内，更精确稳定</p>
+  <p>首先给需要获取的元素加上ref='xxx'，然后使用this.$refs.xxx获取</p>
+  <p>也可以通过this.$refs.子组件.方法，来从父组件中调用子组件的某个方法</p>
+  <h3>$nextTick 等dom更新完，立刻去执行</h3>
+  <p>$nextTick 方法用于在下次 DOM 更新循环结束之后执行延迟回调。这个方法非常有用，特别是在你需要在视图更新后执行一些操作时</p>
+  <p>vue是异步更新dom的，想要在dom更新完成后执行某件事，可以使用$nextTick</p>
+  <p>this.$nextTick( () => {业务逻辑} )</p>
+  <hr>
+
+  <h1>自定义指令</h1>
+  <p>inserted，当指令所绑定的元素，被添加到页面当中的时候，自动调用</p>
+  <h3 style="white-space: pre-wrap">全局注册指令，在main.js中注册
+    Vue.directive('指令名', {
+    // 指令被绑定到元素时
+    bind(el, binding) {
+      // el 是指令绑定的元素
+      // binding 是一个对象，包含指令的相关信息
+      el.style.color = binding.value; // 设置元素的文字颜色为指令的值
+    },
+  })</h3>
+  <p>然后给需要绑定的元素使用 v-指令名 ，就自动有效果,注意只需要v-指令名,不需要写='xx'</p>
+  <p>好处是封装起来，有别的元素需要可以直接调用</p>
+  <h3 style="white-space: pre-wrap">局部注册，在App.vue中注册
+    directives: {
+      指令名: {
+        bind(el, binding) {
+          el.style.color = binding.value;
+        },
+      },
+    },</h3>
+  <p>自定义指令可以传参，v-指令名='xx'，用binding接收，binding.value可以获取参数</p>
+  <p>inserted(el,binding) {
+    el.style.color = binding.value
+    }</p>
+  <p>使用了inserted，可以初始化，但是后续需要更新值的话，就要再额外设置一个update，这样才会跟着一起变化</p>
+  <hr>
+
+  <h1>插槽，让组件内部一些结构支持自定义</h1>
+  <p>在子组件中使用标签slot占位，包裹住需要自定义的内容</p>
+  <p>在父组件中调用的子组件标签中写自定义的内容，会自动传到slot中，传的内容可以写标签</p>
+  <p>往slot标签内部填写内容为默认内容</p>
+  <h3>具名插槽，只支持定向分发</h3>
+  <p>一个子组件中假如有多处slot，那么父组件中填写的并不清楚顺序，可能会弄混</p>
+  <p>多个slot使用name属性区分名字，template配合v-slot:名字 来分发区分标签</p>
+  <h3>v-slot:插槽名 可以简写为 #插槽名</h3>
+  <h3>作用域插槽</h3>
+  <p>子组件中的slot还可以写属性和方法 slot :title="item" msg="测试信息"</p>
+  <p>比如v-for循环，我们需要删除某个数据，但是需要id，而v-for只在子组件中循环，父组件中的子组件标签是没有item的</p>
+  <p>此时就靠着title传item到父组件中的子组件标签中，注意是写在子组件的slot中的</p>
+  <p>父组件中使用 template #default="obj"包裹着要传的值，obj即为子组件中传过来的所有数据，包括title/msg等</p>
+  <p>#default是只有一个slot的情况下，如果有多个slot，使用#name</p>
+  <p>通过这样，就可以在父组件中，实现某些需要子组件中的值的操作</p>
+  <p>obj是任意取的名字，是个对象，支持对象解构</p>
+  <hr>
+
+  <h1>路由</h1>
+  <h3>单页应用程序，页面按需更新，开发效率高，性能高，用户体验好</h3>
+  <p>按需更新 首先需要明确访问路径和组件的对应关系</p>
+  <p>路由使用，先下载，再在main.js中定义、配置，需要配置path和component两项，path为路由路径 '/xx'，是以后呈现在网页链接的。component为 组件引入main.js中定义的名字</p>
+  <p>出现的子页面组件放在文件夹src/views中，然后在app.vue中写上a链接，href为在main.js中定义的'#/xx'</p>
+  <p>router-view标签负责展示内容</p>
+  <h3>为了对router方便管理，拆分模块，利于维护。新建一个router/index.js，将views下的子组件统一import在里面</h3>
+  <p>import可以写绝对地址 @ = src ，所以想要找到views下的某个子组件可以 @views/xxx</p>
+  <hr>
+
+  <h3>router-link 全局组件，替代a标签 router-link to="/test1"</h3>
+  <p>href变为to='/xxx' 不需要写#号，本质就是a标签</p>
+  <p>router-link额外属性是，能高亮，默认就会提供高亮类名，可以直接设置高亮样式</p>
+  <p>css中设置 .router-link-active，这个就是点击之后高亮的属性</p>
+  <p>router-link点击后会有两个属性 router-link-exact-active和router-link-active</p>
+  <p>exact精确匹配，无则为模糊匹配，如/test1 /test1/a /test1/b都会被匹配到，使用较多，而精确匹配只会匹配/test1</p>
+  <p>如果觉得全称太长了，可以在index.js中的router配置 linkActiveClass: '类名1',
+    linkExactActiveClass: '类名2'</p>
+  <p>类名1/2分别对应着active/xact</p>
+  <hr>
+
+  <h1>跳转传参，跳转路由的时候进行传参</h1>
+  <h3>静态查询参数传参，适合多个传参</h3>
+  <p>to='/path?参数名=值'传查询参数 $route.query.参数名 接收传递过来的值</p>
+  <p>$route.query.参数名 直接写在需要接收的模板内，用{{}}接收即可，如果是写在js中，就需要加上this.</p>
+  <h3>动态查询参数传参，优雅简洁，适合单个参数</h3>
+  <p>此处需要配置index.js中route的path，改为'/XXX/:xxx' :冒号后面跟着的就是匹配</p>
+  <p>然后在需要跳转的router-link中设置to="/XXX/参数值"</p>
+  <p>对应接收为$route.params.参数名，此处的参数名为route中配置的path:冒号后面的值，比如此次参数名就是xxx</p>
+  <p>需要注意的是，加上了:xxx意味着必须匹配，如果没有xxx则单单网页/XXX是没有内容的</p>
+  <p>所以可以加上/XXX/:xxx? ?问号代表着可选传参，即使没有传参也会正常渲染页面</p>
+  <hr>
+
+  <h3>路由重定向</h3>
+  <p>打开页面的时候url默认是/路径，未匹配到组件页面一片空白</p>
+  <p>为了让页面有组件，可以设置打开自动跳转到某个路径，比如/home，此次就会用到重定向</p>
+  <p>配置在routes { path: '/', redirect: '/home' }，path为匹配路径，redirect为重定向的路径</p>
+  <h3>404</h3>
+  <p>当路径找不到匹配的时候，希望能给个提示页面，比如404 Not Find</p>
+  <p>配置在routes最后 { path: '*', component: NotFind } *匹配所有路径，所以要放在最后</p>
+  <h3>模式设置</h3>
+  <p>默认是hash路由，地址为http:/XXX/#/xxx</p>
+  <p>常用的是history路由，地址为http:/XXX/xxx，在router中配置mode: 'history'</p>
+  <hr>
+
+  <h3>path路径跳转，比如按钮跳转无法使用router-link，就需要别的方法实现跳转</h3>
+  <p>简单写法 this.$router.push('路由路径') 这里的路由路径就是 /search 这种</p>
+  <p>浏览器的历史记录有两种写入方式：push和replace，其中push是追加历史记录，replace是替换当前记录。路由跳转时候默认为push方式</p>
+  <p>如果只是简单的返回上一页，可以使用$router.back() or $router.go(-1)</p>
+  <p>完整写法就是写对象 this.$router.push({
+    path: '/search'
+    })，后面还可以传参</p>
+  <h3>name命名路由跳转，适合path路径长的</h3>
+  <p>this.$router.push({
+    name: '路由名'
+    }) 需要提前在router中的routes设置每个的name
+  </p>
+
+  <h3>path传参查询</h3>
+  <p>简单写法的静态传参 this.$router.push('路由路径?查询参数=查询值&')，传的值可以在路由路径的网页中用$route.query.参数名获取</p>
+  <p>完整写法的静态传参较为方便，在对象中增加 query: {
+    参数名1: 参数值1,
+    参数名2: 参数值2
+    } 可以写多个查询参数</p>
+  <p>简单写法的动态传参 this.$router.push('路由路径/查询值')，记得配置index.js中route的path，并且使用$route.params.参数名接收参数</p>
+  <h3>name命名传参</h3>
+  <p>使用完整写法，传参使用对象写法，query:{} params:{}，接收参数方法也需要相对应的修改</p>
+  <hr>
+
+  <h3>路由二级嵌套</h3>
+  <p>给routes的一级添加属性children:[{},{}]，即可配置二级嵌套</p>
+  <p>配置完二级嵌套，需要在使用二级嵌套的一级子组件中，也就是添加children的component中使用router-view来接收二级嵌套内容</p>
+  <hr>
+
+  <h1>组件缓存</h1>
+  <p>主页面滑到一半，点进去某个页面，再退出，主页面会返回到最顶层</p>
+  <p>这是因为进入新页面，旧页面会被销毁，在返回就会重新加载，所以会返回最顶层</p>
+  <p>组件缓存 keep-alive标签包裹住需要缓存的元素  keep-alive :include="['xxx']"</p>
+  <p>需要注意的是，keep-alive可能会缓存所有组件，主页面被缓存是好的，但是我们想看的分页面可能有多个，点击进去查看，页面也会被缓存成我们查看的第一个组件</p>
+  <p>可以使用 include 组件名数组，缓存匹配的组件，使用较多 / exclude 组件名数组，不缓存匹配的组件 ，max 最多可以缓存多少个组件</p>
+  <p>注意是组件名数组，组件名是我们在组件的js部分定义的name，不是文件名</p>
+  <h3>组件一旦缓存，就不会执行组件的created/mounted/destroyed钩子函数，此时想要完成某些需求，比如回到主页面就发送某个消息是无法实现的</h3>
+  <p>所以提供了两个新钩子函数 acitved 页面被看到的时候触发 / deactived 离开页面的时候触发</p>
+  <hr>
+
+  <h1>ESLint代码修正</h1>
+  <p>企业代码规范ESLint，在创建vue项目的时候可以自定义设置</p>
+  <p>vscode也有相应插件，需要在setting.json设置，并且以vue项目为根目录打开</p>
+  <hr>
+
+  <h1>VueX</h1>
+  <p>vuex是一个插件，管理vue的通用数据（多组件共享的数据）</p>
+  <p>数据集中化管理，响应式变化，操作简洁</p>
+  <p>在vue create 项目名 的时候选择自定义，然后勾选vuex，则可以自动生成vuex文件</p>
+  <h2>共享的数据写在store下的state中</h2>
+  <p>访问数据可以通过$store.state.xxx 记得在填写的不同位置添加this/删除$</p>
+  <p>也可以通过mapState和computed属性访问，在需要使用的组件中定义  computed: {
+    ...mapState(['count', 'title'])
+  }，然后在使用的地方{{ count }}即可，记得需要import mapState</p>
+  <h2>修改数据应遵循单向数据流，不应该直接修改，而是提交给store中的mutations修改</h2>
+  <p>通过mutation提供修改数据的方法，所有mutation函数第一个参数都是 state，addCount (state, n) {}</p>
+  <p>在需要修改数据的地方，用this.$store.commit('方法名', 参数)提交给store更新，方法名就是在mutation中定义的方法</p>
+  <p>参数只能传一个，如果要传多个参数，需要用数组/对象写法</p>
+  <p>辅助函数mapMutations,使用方法和mapState类似，写在组件的methods内，从mapMutations导入进来的方法可以直接在方法内写括号加参数</p>
+  <h3>补充知识，vuex和v-model的操作</h3>
+  <p>v-model和store无法一起使用，因为v-model不能直接修改store中的值</p>
+  <p>可以通过设置需要双向绑定的输入框，:value 为state中的值，@input 为调用mutations中的方法 this.$store.commit('countChange', e.target.value)</p>
+  <h2>actions异步修改</h2>
+  <p>store提供了actions属性，内部定义方法方便异步修改</p>
+  <p>actions: {
+    // setTimeout模拟异步，以后大部分场景为发请求
+    setTimeout(() => {
+      console.log(context, num)
+      context.commit('countChange', num)
+    }, 1000)
+  }actions里面的方法无法直接修改state内的值，也是需要commit</p>
+  <p>commit中调用的是mutations中的方法，这里的context就是Vuex.Store对象，也可以理解为当前vue模块的上下文，num是携带参数</p>
+  <p>在需要修改数据的地方，用this.$store.dispatch('方法名', 参数)提交给store更新，方法名就是在actions中定义的方法</p>
+  <p>同样的，也有辅助函数mapActions，写在methods中，用法同之前类似</p>
+  <h3>补充知识，使用辅助函数...mapActions(['changeCountAsync'])之类导入的方法，在调用的时候可以直接用括号写参数的</h3>
+  <p>比如changeCountAsync(114514)，但是不用辅助函数而是this.$store.dispatch('方法名', 参数)，就需要在后面写参数</p>
+  <h2>getters，类似于computed属性，可以理解为state中的数据需要经过加工后再使用</h2>
+  <p>getters: {
+    filterList (state) {
+      return state.list.filter(e => e >= 3)
+    }
+  }方法第一个参数必须为state，必须有返回值</p>
+  <p>在需要使用的地方直接用{{ $store.getters.filterList }}，里面的值即为函数返回的值</p>
+  <p>同样也可以使用辅助函数mapGetters，写在computed属性中</p>
+  <h3>补充知识，mapState和mapGetters是写在computed中的，mapMutations和mapActions是写在methods中的，分别提供属性/值和方法</h3>
+  <h2>模块module</h2>
+  <p>state是单一状态树，当内容多起来会变得难以维护，此时拆分组件在/store/modules/xxx.js，然后再导入，方便维护</p>
+  <p>导入后在modules中引入，本质还是挂载在state中，可以通过$store.state.test.nick查询</p>
+  <p>也可以通过mapState访问，mapState('模块名', ['xxx'])，这是子模块的映射，默认根模块的映射就直接mapState(['xxx'])，xxx就是模块的state中的数据名</p>
+  <p>通过mapState访问需要开启namespaced，在子模块导出部分添加namespaced: true，然后就可以直接使用{{ xxx }}来访问</p>
+  <h3>同理，有state就有getters、mutations、actions</h3>
+  <p>子模块设置getters，在需要使用的地方调用即可 {{ $store.getters['子模块名/方法'] }}</p>
+  <p>至于为什么是这种形式，是因为$store.getters是个对象，里面包含着所有子模块和主模块的getters返回值</p>
+  <p>由于我们开了命名空间，所以子模块中getters的方法是 子模块名/方法，有特殊字符'/'，无法通过'.'获取，所以需要用中括号包裹着，而主模块没有'/'，所以可以直接使用'.'获取</p>
+  <p>辅助函数mapGetters写法与mapState类似 mapGetters('模块名', ['方法'])</p>
+
+  <p>子模块设置mutations，在需要使用的地方 $store.commit('模块名/mutation方法',参数)</p>
+  <p>辅助函数mutations写法与mapState类似 mapMutations('模块名', ['方法'])</p>
+
+  <p>子模块设置actions，在需要使用的地方 $store.dispatch('模块名/actions方法',参数)</p>
+  <p>辅助函数actions写法与mapState类似 mapActions('模块名', ['方法'])</p>
+  <h3>补充知识，actions是负责异步的，所以没有异步的需求使用mutations，使用actions需要多设置一步context.commit('方法', 参数)</h3>
+
+</body>
+
+</html>
