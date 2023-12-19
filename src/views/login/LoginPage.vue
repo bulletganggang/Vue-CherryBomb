@@ -1,18 +1,43 @@
 <script setup>
-import { User, View, ArrowRightBold } from '@element-plus/icons-vue'
+import {
+  User,
+  View,
+  ArrowRightBold,
+  ArrowLeftBold
+} from '@element-plus/icons-vue'
 
 // 收集form元素
 const form = ref({
   name: '',
   password: '',
+  rePassword: '',
   rememberMe: false
 })
 
-// 修改登录/注册
-const isRegister = ref(true)
+// 切换登录/注册
+const isRegister = ref(false)
 
 // 查看密码
 const viewPwd = ref('password')
+
+// 查看再次输入密码
+const viewRePwd = ref('password')
+
+// 处理查看密码
+const handleViewPwd = (e) => {
+  // 获取需要修改的密码的id，也就是什么类型
+  const changePwdId = e.target.parentNode.previousElementSibling.id
+
+  if (changePwdId === 'pwd') {
+    viewPwd.value === 'password'
+      ? (viewPwd.value = 'text')
+      : (viewPwd.value = 'password')
+  } else {
+    viewRePwd.value === 'password'
+      ? (viewRePwd.value = 'text')
+      : (viewRePwd.value = 'password')
+  }
+}
 </script>
 
 <template>
@@ -68,14 +93,64 @@ const viewPwd = ref('password')
         <!-- 去注册按钮 -->
         <el-form-item class="no-account">
           <span>没有账号?</span>
-          <el-button type="primary" round class="register-btn"
+          <el-button type="primary" round class="login-btn"
             >注册<el-icon><ArrowRightBold /></el-icon
           ></el-button>
         </el-form-item>
       </el-form>
 
       <!-- 注册模块 -->
-      <el-form :model="form" v-else></el-form>
+      <el-form :model="form" v-else>
+        <!-- username -->
+        <el-form-item class="inputbox">
+          <input
+            class="ipt"
+            v-model="form.name"
+            type="text"
+            placeholder="用户名"
+          />
+          <el-icon><User /></el-icon>
+        </el-form-item>
+
+        <!-- password -->
+        <el-form-item class="inputbox">
+          <input
+            class="ipt"
+            v-model="form.password"
+            :type="viewPwd"
+            placeholder="密码"
+            id="pwd"
+          />
+          <el-icon><View @click="handleViewPwd($event)" /></el-icon>
+        </el-form-item>
+
+        <!-- rePassword -->
+        <el-form-item class="inputbox">
+          <input
+            class="ipt"
+            v-model="form.rePassword"
+            :type="viewRePwd"
+            placeholder="请再次输入密码"
+            id="rePwd"
+          />
+          <el-icon><View @click="handleViewPwd($event)" /></el-icon>
+        </el-form-item>
+
+        <!-- 注册按钮 -->
+        <el-form-item
+          ><el-button type="primary" round class="login-btn"
+            >注册</el-button
+          ></el-form-item
+        >
+
+        <!-- 去注册按钮 -->
+        <el-form-item class="have-account">
+          <span>已有账号?</span>
+          <el-button type="primary" round class="login-btn"
+            ><el-icon><ArrowLeftBold /></el-icon>登录</el-button
+          >
+        </el-form-item>
+      </el-form>
     </div>
   </div>
 </template>
@@ -86,7 +161,7 @@ const viewPwd = ref('password')
   width: 100vw;
   height: 100vh;
   // background: linear-gradient(to right, #81d8d1, #65cbf7);
-  background: url('@/assets/LoginImg/img2.jpg');
+  background: url('@/assets/LoginImg/img1.jpg');
   background-position: center;
   background-size: 100%;
   display: flex;
@@ -97,7 +172,7 @@ const viewPwd = ref('password')
   .loginform {
     color: #f3f3f3;
     height: 52%;
-    width: 25%;
+    width: 24%;
     border: 2px solid rgba($color: #fff, $alpha: 0.2);
     backdrop-filter: blur(20px);
     box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.1);
@@ -108,6 +183,7 @@ const viewPwd = ref('password')
     h1 {
       font-size: 48px;
       text-align: center;
+      margin-top: -6px;
     }
 
     // 输入框
@@ -160,8 +236,7 @@ const viewPwd = ref('password')
     }
 
     // 登录 & 注册按钮
-    .login-btn,
-    .register-btn {
+    .login-btn {
       width: 100%;
       background: linear-gradient(to right, #81d8d1, #65cbf7);
       border: none;
@@ -173,13 +248,18 @@ const viewPwd = ref('password')
       box-shadow: 0 0 10px rgba($color: #000000, $alpha: 0.1);
     }
 
-    // 去注册模块
+    // 去注册/登录模块
+    .have-account,
     .no-account {
       margin: -5px 0;
       color: #81d8d1;
       .el-icon {
         top: -1px;
       }
+    }
+
+    .have-account {
+      margin: -10px 0;
     }
   }
 }
