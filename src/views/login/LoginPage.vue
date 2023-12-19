@@ -12,7 +12,7 @@ const form = ref({
 const isRegister = ref(true)
 
 // 查看密码
-const pwd = ref('password')
+const viewPwd = ref('password')
 </script>
 
 <template>
@@ -24,7 +24,7 @@ const pwd = ref('password')
       <!-- 登录模块 -->
       <el-form :model="form" v-if="isRegister">
         <!-- username -->
-        <div class="inputbox">
+        <el-form-item class="inputbox">
           <input
             class="ipt"
             v-model="form.name"
@@ -32,48 +32,50 @@ const pwd = ref('password')
             placeholder="用户名"
           />
           <el-icon><User /></el-icon>
-        </div>
+        </el-form-item>
 
         <!-- password -->
-        <div class="inputbox">
+        <el-form-item class="inputbox">
           <input
             class="ipt"
             v-model="form.password"
-            :type="pwd"
+            :type="viewPwd"
             placeholder="密码"
           />
           <el-icon
             ><View
-              @click="pwd === 'password' ? (pwd = 'text') : (pwd = 'password')"
+              @click="
+                viewPwd === 'password'
+                  ? (viewPwd = 'text')
+                  : (viewPwd = 'password')
+              "
           /></el-icon>
-        </div>
+        </el-form-item>
 
         <!-- 记住我 & 忘记密码 -->
-        <div class="remember-forget">
-          <label for="remember-me"
-            ><input
-              type="checkbox"
-              id="remember-me"
-              v-model="form.rememberMe"
-            />记住我</label
-          >
+        <el-form-item class="remember-forget">
+          <el-checkbox v-model="form.rememberMe" label="记住我" size="large" />
           <a href="#">忘记密码?</a>
-        </div>
+        </el-form-item>
 
         <!-- 登录按钮 -->
-        <el-button type="primary" round class="login-btn">登录</el-button>
+        <el-form-item
+          ><el-button type="primary" round class="login-btn"
+            >登录</el-button
+          ></el-form-item
+        >
 
         <!-- 去注册按钮 -->
-        <div class="no-account">
-          没有账号?
+        <el-form-item class="no-account">
+          <span>没有账号?</span>
           <el-button type="primary" round class="register-btn"
             >注册<el-icon><ArrowRightBold /></el-icon
           ></el-button>
-        </div>
+        </el-form-item>
       </el-form>
 
       <!-- 注册模块 -->
-      <form v-else></form>
+      <el-form :model="form" v-else></el-form>
     </div>
   </div>
 </template>
@@ -91,20 +93,16 @@ const pwd = ref('password')
   justify-content: center;
   align-items: center;
 
-  // 表单
+  // 登录表单
   .loginform {
     color: #f3f3f3;
     height: 52%;
-    width: 26%;
+    width: 25%;
     border: 2px solid rgba($color: #fff, $alpha: 0.2);
     backdrop-filter: blur(20px);
     box-shadow: 0 0 10px rgba($color: #000, $alpha: 0.1);
     border-radius: 10px;
     padding: 25px 40px;
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
-    // flex-direction: column;
 
     // 标题
     h1 {
@@ -146,15 +144,14 @@ const pwd = ref('password')
 
     // 记住我 & 忘记密码
     .remember-forget {
-      display: flex;
-      justify-content: space-between;
-      label {
-        input {
-          accent-color: #f3f3f3;
-        }
+      .el-checkbox {
+        color: #f3f3f3;
+        zoom: 113.5%;
       }
       a {
+        margin-left: auto;
         color: #f3f3f3;
+        font-size: 16px;
         text-decoration: none;
         &:hover {
           text-decoration: underline;
@@ -165,7 +162,6 @@ const pwd = ref('password')
     // 登录 & 注册按钮
     .login-btn,
     .register-btn {
-      margin: 30px 0;
       width: 100%;
       background: linear-gradient(to right, #81d8d1, #65cbf7);
       border: none;
@@ -177,8 +173,10 @@ const pwd = ref('password')
       box-shadow: 0 0 10px rgba($color: #000000, $alpha: 0.1);
     }
 
-    .register-btn {
-      margin: 0;
+    // 去注册模块
+    .no-account {
+      margin: -5px 0;
+      color: #81d8d1;
       .el-icon {
         top: -1px;
       }
