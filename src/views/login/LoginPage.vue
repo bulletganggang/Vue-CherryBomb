@@ -1,4 +1,5 @@
 <script setup>
+// 导入element-icon
 import {
   User,
   View,
@@ -15,27 +16,25 @@ const form = ref({
 })
 
 // 切换登录/注册
-const isRegister = ref(false)
+const isLogin = ref(true)
 
-// 查看密码
-const viewPwd = ref('password')
+// 密码
+const viewPwd = ref(false)
 
-// 查看再次输入密码
-const viewRePwd = ref('password')
+// 再次输入密码
+const viewRePwd = ref(false)
 
 // 处理查看密码
-const handleViewPwd = (e) => {
-  // 获取需要修改的密码的id，也就是什么类型
-  const changePwdId = e.target.parentNode.previousElementSibling.id
+const handleViewPwd = () => {
+  if (form.value.password !== '') {
+    viewPwd.value = !viewPwd.value
+  }
+}
 
-  if (changePwdId === 'pwd') {
-    viewPwd.value === 'password'
-      ? (viewPwd.value = 'text')
-      : (viewPwd.value = 'password')
-  } else {
-    viewRePwd.value === 'password'
-      ? (viewRePwd.value = 'text')
-      : (viewRePwd.value = 'password')
+// 处理再次查看密码
+const handleViewRePwd = () => {
+  if (form.value.rePassword !== '') {
+    viewRePwd.value = !viewRePwd.value
   }
 }
 </script>
@@ -44,10 +43,10 @@ const handleViewPwd = (e) => {
   <div class="loginpage">
     <div class="loginform">
       <!-- 标题 -->
-      <h1>{{ isRegister ? 'Login' : 'Register' }}</h1>
+      <h1>{{ isLogin ? 'Login' : 'Register' }}</h1>
 
       <!-- 登录模块 -->
-      <el-form :model="form" v-if="isRegister">
+      <el-form :model="form" v-if="isLogin">
         <!-- username -->
         <el-form-item class="inputbox">
           <input
@@ -64,17 +63,10 @@ const handleViewPwd = (e) => {
           <input
             class="ipt"
             v-model="form.password"
-            :type="viewPwd"
+            :type="viewPwd ? 'text' : 'password'"
             placeholder="密码"
           />
-          <el-icon
-            ><View
-              @click="
-                viewPwd === 'password'
-                  ? (viewPwd = 'text')
-                  : (viewPwd = 'password')
-              "
-          /></el-icon>
+          <el-icon><View @click="handleViewPwd()" /></el-icon>
         </el-form-item>
 
         <!-- 记住我 & 忘记密码 -->
@@ -117,11 +109,10 @@ const handleViewPwd = (e) => {
           <input
             class="ipt"
             v-model="form.password"
-            :type="viewPwd"
+            :type="viewPwd ? 'text' : 'password'"
             placeholder="密码"
-            id="pwd"
           />
-          <el-icon><View @click="handleViewPwd($event)" /></el-icon>
+          <el-icon><View @click="handleViewPwd()" /></el-icon>
         </el-form-item>
 
         <!-- rePassword -->
@@ -129,11 +120,10 @@ const handleViewPwd = (e) => {
           <input
             class="ipt"
             v-model="form.rePassword"
-            :type="viewRePwd"
+            :type="viewRePwd ? 'text' : 'password'"
             placeholder="请再次输入密码"
-            id="rePwd"
           />
-          <el-icon><View @click="handleViewPwd($event)" /></el-icon>
+          <el-icon><View @click="handleViewRePwd()" /></el-icon>
         </el-form-item>
 
         <!-- 注册按钮 -->
@@ -143,7 +133,7 @@ const handleViewPwd = (e) => {
           ></el-form-item
         >
 
-        <!-- 去注册按钮 -->
+        <!-- 去登录按钮 -->
         <el-form-item class="have-account">
           <span>已有账号?</span>
           <el-button type="primary" round class="login-btn"
@@ -264,6 +254,7 @@ const handleViewPwd = (e) => {
   }
 }
 
+// 让密码输入框取消小眼睛
 input[type='password']::-ms-reveal {
   display: none;
 }

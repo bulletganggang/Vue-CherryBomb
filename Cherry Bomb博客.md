@@ -224,7 +224,13 @@ export * from './modules/user'
 
 同时在router/index.js中配置路由
 
-本次登录页面主要结构参考此视频[Login Form in HTML & CSS - YouTube](https://www.youtube.com/watch?v=hlwlM4a5rxg)
+**本次登录页面主要结构参考此视频[Login Form in HTML & CSS - YouTube](https://www.youtube.com/watch?v=hlwlM4a5rxg)**
+
+**部分组件用到了element-plus**
 
 
+
+### 页面静态布局
+
+**登录模块**
 
