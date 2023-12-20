@@ -37,6 +37,29 @@ const handleViewRePwd = () => {
     viewRePwd.value = !viewRePwd.value
   }
 }
+
+// 处理登录/注册form切换
+const handleChangeForm = () => {
+  // 修改isLogin，切换模块
+  isLogin.value = !isLogin.value
+
+  // 切换的时候清空表单
+  form.value.name = form.value.password = form.value.rePassword = ''
+}
+
+// 处理密码框为空时仍然为文本框可以看到密码的bug
+const handleEmptyPwd = () => {
+  if (form.value.password === '') {
+    viewPwd.value = false
+  }
+}
+
+// 处理re密码框为空时仍然为文本框可以看到密码的bug
+const handleEmptyRePwd = () => {
+  if (form.value.rePassword === '') {
+    viewRePwd.value = false
+  }
+}
 </script>
 
 <template>
@@ -65,6 +88,7 @@ const handleViewRePwd = () => {
             v-model="form.password"
             :type="viewPwd ? 'text' : 'password'"
             placeholder="密码"
+            @input="handleEmptyPwd"
           />
           <el-icon><View @click="handleViewPwd()" /></el-icon>
         </el-form-item>
@@ -85,7 +109,11 @@ const handleViewRePwd = () => {
         <!-- 去注册按钮 -->
         <el-form-item class="no-account">
           <span>没有账号?</span>
-          <el-button type="primary" round class="login-btn"
+          <el-button
+            type="primary"
+            round
+            class="login-btn"
+            @click="handleChangeForm()"
             >注册<el-icon><ArrowRightBold /></el-icon
           ></el-button>
         </el-form-item>
@@ -111,6 +139,7 @@ const handleViewRePwd = () => {
             v-model="form.password"
             :type="viewPwd ? 'text' : 'password'"
             placeholder="密码"
+            @input="handleEmptyPwd"
           />
           <el-icon><View @click="handleViewPwd()" /></el-icon>
         </el-form-item>
@@ -122,6 +151,7 @@ const handleViewRePwd = () => {
             v-model="form.rePassword"
             :type="viewRePwd ? 'text' : 'password'"
             placeholder="请再次输入密码"
+            @input="handleEmptyRePwd"
           />
           <el-icon><View @click="handleViewRePwd()" /></el-icon>
         </el-form-item>
@@ -136,7 +166,11 @@ const handleViewRePwd = () => {
         <!-- 去登录按钮 -->
         <el-form-item class="have-account">
           <span>已有账号?</span>
-          <el-button type="primary" round class="login-btn"
+          <el-button
+            type="primary"
+            round
+            class="login-btn"
+            @click="handleChangeForm()"
             ><el-icon><ArrowLeftBold /></el-icon>登录</el-button
           >
         </el-form-item>
@@ -151,7 +185,7 @@ const handleViewRePwd = () => {
   width: 100vw;
   height: 100vh;
   // background: linear-gradient(to right, #81d8d1, #65cbf7);
-  background: url('@/assets/LoginImg/img1.jpg');
+  background: url('@/assets/LoginImg/img77.jpg');
   background-position: center;
   background-size: 100%;
   display: flex;
