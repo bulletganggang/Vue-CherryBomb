@@ -12,11 +12,13 @@ const form = ref({
   name: '',
   password: '',
   rePassword: '',
-  rememberMe: false
+  rememberMe: false,
+
+  // 定义警告次数，警告次数为0则只警告一次
+  warnTime: 0
 })
 
-// 切换登录/注册
-const isLogin = ref(true)
+// 密码框处理事件
 
 // 密码
 const viewPwd = ref(false)
@@ -37,16 +39,6 @@ const handleViewRePwd = () => {
     viewRePwd.value = !viewRePwd.value
   }
 }
-
-// 处理登录/注册form切换
-const handleChangeForm = () => {
-  // 修改isLogin，切换模块
-  isLogin.value = !isLogin.value
-
-  // 切换的时候清空表单
-  form.value.name = form.value.password = form.value.rePassword = ''
-}
-
 // 处理密码框为空时仍然为文本框可以看到密码的bug
 const handleEmptyPwd = () => {
   if (form.value.password === '') {
@@ -61,6 +53,30 @@ const handleEmptyRePwd = () => {
   }
 }
 
+// 点击密码框时警告不要输入真实密码
+// user点击tab键或者点击鼠标到密码框，都会发出警告
+const warnPwd = () => {
+  if (form.value.warnTime) return
+  ElMessage({
+    showClose: true,
+    message: '登录注册页面仅用于测试，请千万不要输入真实密码',
+    type: 'warning'
+  })
+  form.value.warnTime++
+}
+
+// 切换登录/注册
+const isLogin = ref(true)
+
+// 处理登录/注册form切换
+const handleChangeForm = () => {
+  // 修改isLogin，切换模块
+  isLogin.value = !isLogin.value
+
+  // 切换的时候清空表单
+  form.value.name = form.value.password = form.value.rePassword = ''
+}
+
 // 图片总数
 const totalImages = 75
 
@@ -73,12 +89,12 @@ const backgroundUrl = ref('../../../src/assets/LoginImg/img66.jpg')
   const randomNumber = Math.floor(Math.random() * totalImages) + 1
   backgroundUrl.value =
     '../../../src/assets/LoginImg/img' + randomNumber + '.jpg'
-  console.log(backgroundUrl.value)
 })()
 </script>
 
 <template>
   <div class="loginpage" :style="{ backgroundImage: `url(${backgroundUrl})` }">
+    <!-- 登录注册模块 -->
     <div class="loginform">
       <!-- 标题 -->
       <h1>{{ isLogin ? 'Login' : 'Register' }}</h1>
@@ -92,6 +108,7 @@ const backgroundUrl = ref('../../../src/assets/LoginImg/img66.jpg')
             v-model="form.name"
             type="text"
             placeholder="用户名"
+            @keydown.tab="warnPwd()"
           />
           <el-icon><User /></el-icon>
         </el-form-item>
@@ -104,6 +121,7 @@ const backgroundUrl = ref('../../../src/assets/LoginImg/img66.jpg')
             :type="viewPwd ? 'text' : 'password'"
             placeholder="密码"
             @input="handleEmptyPwd"
+            @click="warnPwd"
           />
           <el-icon><View @click="handleViewPwd()" /></el-icon>
         </el-form-item>
@@ -143,6 +161,7 @@ const backgroundUrl = ref('../../../src/assets/LoginImg/img66.jpg')
             v-model="form.name"
             type="text"
             placeholder="用户名"
+            @keydown.tab="warnPwd()"
           />
           <el-icon><User /></el-icon>
         </el-form-item>
@@ -155,6 +174,7 @@ const backgroundUrl = ref('../../../src/assets/LoginImg/img66.jpg')
             :type="viewPwd ? 'text' : 'password'"
             placeholder="密码"
             @input="handleEmptyPwd"
+            @click="warnPwd"
           />
           <el-icon><View @click="handleViewPwd()" /></el-icon>
         </el-form-item>
