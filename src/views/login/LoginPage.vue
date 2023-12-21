@@ -60,10 +60,25 @@ const handleEmptyRePwd = () => {
     viewRePwd.value = false
   }
 }
+
+// 图片总数
+const totalImages = 75
+
+// 史上踩过最大坑
+// 背景url
+const backgroundUrl = ref('../../../src/assets/LoginImg/img66.jpg')
+
+// 生成随机图片路径
+;(() => {
+  const randomNumber = Math.floor(Math.random() * totalImages) + 1
+  backgroundUrl.value =
+    '../../../src/assets/LoginImg/img' + randomNumber + '.jpg'
+  console.log(backgroundUrl.value)
+})()
 </script>
 
 <template>
-  <div class="loginpage">
+  <div class="loginpage" :style="{ backgroundImage: `url(${backgroundUrl})` }">
     <div class="loginform">
       <!-- 标题 -->
       <h1>{{ isLogin ? 'Login' : 'Register' }}</h1>
@@ -185,7 +200,6 @@ const handleEmptyRePwd = () => {
   width: 100vw;
   height: 100vh;
   // background: linear-gradient(to right, #81d8d1, #65cbf7);
-  background: url('@/assets/LoginImg/img77.jpg');
   background-position: center;
   background-size: 100%;
   display: flex;
