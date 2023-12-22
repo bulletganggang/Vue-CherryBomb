@@ -82,7 +82,7 @@ const totalImages = 75
 
 // 史上踩过最大坑
 // 背景url
-const backgroundUrl = ref('../../../src/assets/LoginImg/img66.jpg')
+const backgroundUrl = ref('')
 
 // 生成随机图片路径
 ;(() => {
@@ -123,7 +123,9 @@ const backgroundUrl = ref('../../../src/assets/LoginImg/img66.jpg')
             @input="handleEmptyPwd"
             @click="warnPwd"
           />
-          <el-icon><View @click="handleViewPwd()" /></el-icon>
+          <el-icon
+            ><View @click="handleViewPwd()" style="cursor: pointer"
+          /></el-icon>
         </el-form-item>
 
         <!-- 记住我 & 忘记密码 -->
@@ -176,7 +178,9 @@ const backgroundUrl = ref('../../../src/assets/LoginImg/img66.jpg')
             @input="handleEmptyPwd"
             @click="warnPwd"
           />
-          <el-icon><View @click="handleViewPwd()" /></el-icon>
+          <el-icon
+            ><View @click="handleViewPwd()" style="cursor: pointer"
+          /></el-icon>
         </el-form-item>
 
         <!-- rePassword -->
@@ -188,7 +192,9 @@ const backgroundUrl = ref('../../../src/assets/LoginImg/img66.jpg')
             placeholder="请再次输入密码"
             @input="handleEmptyRePwd"
           />
-          <el-icon><View @click="handleViewRePwd()" /></el-icon>
+          <el-icon
+            ><View @click="handleViewRePwd()" style="cursor: pointer"
+          /></el-icon>
         </el-form-item>
 
         <!-- 注册按钮 -->
@@ -221,10 +227,11 @@ const backgroundUrl = ref('../../../src/assets/LoginImg/img66.jpg')
   height: 100vh;
   // background: linear-gradient(to right, #81d8d1, #65cbf7);
   background-position: center;
-  background-size: 100%;
+  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden; /* 防止内容溢出导致背景出现空白 */
 
   // 登录表单
   .loginform {
@@ -319,6 +326,27 @@ const backgroundUrl = ref('../../../src/assets/LoginImg/img66.jpg')
     .have-account {
       margin: -10px 0;
     }
+  }
+}
+
+/* 媒体查询控制loginform最小宽度 */
+@media screen and (max-width: 1630px) {
+  .loginpage .loginform {
+    width: 394px;
+  }
+}
+
+/* 媒体查询控制inputbox最小宽度 */
+@media screen and (max-width: 390px) {
+  .loginpage .loginform .inputbox {
+    width: 306px;
+  }
+}
+
+/* 媒体查询控制loginform最小高度 */
+@media screen and (max-height: 970px) {
+  .loginpage .loginform {
+    height: 504px;
   }
 }
 
