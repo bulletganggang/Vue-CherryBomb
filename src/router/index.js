@@ -5,11 +5,31 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      component: () => import('@/views/layout/LayoutPage.vue')
+      redirect: '/home'
+    },
+    {
+      path: '/home',
+      component: () => import('@/views/home/HomePage.vue')
     },
     {
       path: '/login',
       component: () => import('@/views/login/LoginPage.vue')
+    },
+    {
+      path: '/categories',
+      component: () => import('@/views/categories/CategoriesPage.vue')
+    },
+    {
+      path: '/contact',
+      component: () => import('@/views/contact/ContactPage.vue')
+    },
+    {
+      path: '/search',
+      component: () => import('@/views/search/SearchPage.vue')
+    },
+    {
+      path: '/user',
+      component: () => import('@/views/user/UserPage.vue')
     }
   ]
 })
