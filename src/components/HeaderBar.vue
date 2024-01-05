@@ -49,7 +49,7 @@ import { Search, Sunny, Moon, UserFilled } from '@element-plus/icons-vue'
 .topBar {
   width: 100%;
   height: 70px;
-  background-color: white;
+  background-color: transparent;
   margin: 0 auto;
   display: flex;
   justify-content: space-around;
@@ -57,9 +57,9 @@ import { Search, Sunny, Moon, UserFilled } from '@element-plus/icons-vue'
 
   // 左边logo区
   .logo {
-    color: #474a50;
-    font-size: 26px;
-    font-weight: 800;
+    color: #e8e8eb;
+    font-size: 28px;
+    font-weight: 900;
   }
 
   // 中间分类区
@@ -72,7 +72,7 @@ import { Search, Sunny, Moon, UserFilled } from '@element-plus/icons-vue'
       margin-right: 20px;
       font-size: 21px;
       font-weight: 300;
-      color: #474a50;
+      color: #e8e8eb;
       text-decoration: none;
       &:last-child {
         margin-right: 0;
@@ -88,17 +88,17 @@ import { Search, Sunny, Moon, UserFilled } from '@element-plus/icons-vue'
       // 挺重要的这个属性，第一次发现还可以这样，可以让icon和字体对齐
       vertical-align: text-bottom;
       cursor: pointer;
-      color: #474a50;
+      color: #e8e8eb;
     }
     .actions-icon-router-link {
-      color: #474a50;
+      color: #e8e8eb;
     }
     .actions-router-link {
       font-size: 21px;
       font-weight: 300;
-      color: #474a50;
+      color: #e8e8eb;
       text-decoration: none;
-      border: 1px solid #474a50;
+      border: 1px solid #e8e8eb;
       padding: 9px;
     }
     .el-avatar {
