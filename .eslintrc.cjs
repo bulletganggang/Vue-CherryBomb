@@ -26,7 +26,7 @@ module.exports = {
     'vue/multi-word-component-names': [
       'warn',
       {
-        ignores: ['index'] // vue组件名称多单词组成（忽略index.vue）
+        ignores: ['index', 'Footer', 'Content', 'Header'] // vue组件名称多单词组成（忽略index.vue）
       }
     ],
     'vue/no-setup-props-destructure': ['off'], // 关闭 props 解构的校验
