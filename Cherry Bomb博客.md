@@ -8,8 +8,6 @@ pnpm create vue
 
 在创建选项中选择
 
-![70280249874](C:\Users\Cherr\AppData\Local\Temp\1702802498742.png)
-
 
 
 ### Eslint 配置代码风格
@@ -116,8 +114,6 @@ package.json 配置 lint-staged 命令
 2. 修改剩余代码内容
 3. 新增调整我们需要的目录结构
 4. 拷贝全局样式和图片，安装预处理器支持
-
-![70280449255](C:\Users\Cherr\AppData\Local\Temp\1702804492557.png)
 
 
 
