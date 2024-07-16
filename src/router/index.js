@@ -9,7 +9,7 @@ const router = createRouter({
     },
     {
       path: '/home',
-      component: () => import('@/views/home/HomePage.vue')
+      component: () => import('@/views/home/index.vue')
     },
     {
       path: '/login',
@@ -30,6 +30,10 @@ const router = createRouter({
     {
       path: '/user',
       component: () => import('@/views/user/UserPage.vue')
+    },
+    {
+      path: '/:pathMatch(.*)',
+      component: () => import('@/views/error/index.vue')
     }
   ]
 })
