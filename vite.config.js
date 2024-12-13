@@ -27,5 +27,24 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  css: {
+    // css预处理器
+    preprocessorOptions: {
+      scss: {
+        // 引入 _variables.scss 这样就可以在全局中使用 _variables.scss中预定义的变量了
+        // 给导入的路径最后加上 ;
+        additionalData: '@import "@/assets/styles/_variables.scss";'
+      }
+    }
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://10.14.3.174:55000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
   }
 })

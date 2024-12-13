@@ -8,8 +8,6 @@ pnpm create vue
 
 在创建选项中选择
 
-
-
 ### Eslint 配置代码风格
 
 在.eslintrc.cjs中配置
@@ -55,10 +53,7 @@ module.exports = {
     ElLoading: 'readonly'
   }
 }
-
 ```
-
-
 
 ### 配置Git仓库
 
@@ -74,7 +69,7 @@ git init
 pnpm dlx husky-init && pnpm install
 ```
 
-安装 lint-staged 包 
+安装 lint-staged 包
 
 ```
 pnpm i lint-staged -D
@@ -106,16 +101,12 @@ package.json 配置 lint-staged 命令
 +pnpm lint-staged
 ```
 
-
-
 ### 目录调整
 
 1. 删除一些初始化的默认文件
 2. 修改剩余代码内容
 3. 新增调整我们需要的目录结构
 4. 拷贝全局样式和图片，安装预处理器支持
-
-
 
 ### 引入 Element Plus 组件库
 
@@ -162,8 +153,6 @@ export default defineConfig({
 
 ```
 
-
-
 ### 配置Pinia持久化
 
 在stores文件夹中创建index.js，统一管理pinia，创建modules文件夹放置子组件pinia
@@ -192,13 +181,9 @@ export * from './modules/user'
 }
 ```
 
-
-
 ### axios配置
 
 暂无~
-
-
 
 ### 配置ref插件
 
@@ -206,13 +191,20 @@ export * from './modules/user'
 
 [Vue3+Vite项目按需自动导入配置以及一些常见问题修复 - 掘金 (juejin.cn)](https://juejin.cn/post/7263274550074196025)
 
-
-
 ### 路由配置
 
 脑袋空空想不到~想到啥写啥把
 
+### vite配置scss
 
+配置完成之后可以在vue文件中全局使用scss变量，非常方便
+https://blog.csdn.net/m0_61486963/article/details/127494962
+
+### JS函数库es-toolkit
+
+[关于 es-toolkit | es-toolkit 中文文档 | es-toolkit中文网](https://www.es-toolkit.cn/zh_hans/intro.html)
+
+一个比lodash好用也更加新的函数库
 
 ## 登录 & 注册页面
 
@@ -223,8 +215,6 @@ export * from './modules/user'
 **本次登录页面主要结构参考此视频[Login Form in HTML & CSS - YouTube](https://www.youtube.com/watch?v=hlwlM4a5rxg)**
 
 **部分组件用到了element-plus**
-
-
 
 ### 页面静态布局
 
@@ -357,8 +347,6 @@ export * from './modules/user'
   </div>
 </template>
 ```
-
-
 
 ### 页面CSS代码
 
@@ -506,8 +494,6 @@ input[type='password']::-o-clear {
 </style>
 ```
 
-
-
 ### 页面JS逻辑代码
 
 ```
@@ -605,7 +591,5 @@ const backgroundUrl = ref('')
 })()
 </script>
 ```
-
-
 
 以后有时间再来细说每部分都干了啥...

@@ -24,10 +24,6 @@ const router = createRouter({
       component: () => import('@/views/contact/ContactPage.vue')
     },
     {
-      path: '/search',
-      component: () => import('@/views/search/SearchPage.vue')
-    },
-    {
       path: '/user',
       component: () => import('@/views/user/UserPage.vue')
     },
