@@ -1,6 +1,6 @@
 <script setup>
-import Content from './components/Content.vue'
-import Footer from './components/Footer.vue'
+import Content from './components/content/index.vue'
+import Footer from './components/footer/index.vue'
 import { ArrowDownBold } from '@element-plus/icons-vue'
 </script>
 
@@ -34,7 +34,7 @@ import { ArrowDownBold } from '@element-plus/icons-vue'
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #f5f5f5;
+  background-color: #f0f2f5;
 
   .home-background {
     width: 100%;
