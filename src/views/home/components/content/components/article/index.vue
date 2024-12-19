@@ -2,7 +2,7 @@
 
 <template>
   <div class="article">
-    <img class="article-cover" src="@/assets/images/homeimg.png" />
+    <img class="article-cover" src="@/assets/images/sunrise.png" />
     <div class="article-info">
       <div class="article-header">
         <div class="title">前端入门教学</div>
@@ -28,6 +28,12 @@
   border-radius: 10px;
   gap: 15px;
   background-color: #fafcff;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+  }
+
   .article-cover {
     height: 100%;
     width: 240px;
